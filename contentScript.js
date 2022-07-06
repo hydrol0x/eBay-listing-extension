@@ -14,6 +14,14 @@
         }
     });
 
+    const fetchBookmarks = () => {
+        return new Promise((resolve) => {
+            chrome.storage.sync.get([currentSearch], (obj) => {
+                resolve(obj[currentSearch] ? JSON.parse(obj[currentSearch]): [])
+            })
+        })
+    }
+
     const newSearchLoaded = () => {
         const deleteBtnExists = document.getElementsByClassName("delete-btn")[0];
 
@@ -33,18 +41,23 @@
                 // on click remove listing and record url
                 listingUrl = listing.getElementsByClassName("s-item__link")[0].href;
                 deleteBtn.addEventListener("click", (e) => {
+                    // can add more information later
                     const newUrl = {
                         url: listingUrl,
                         name: "name",
                     };
-            
-                    chrome.storage.sync.set({
-                        "removedUrls": JSON.stringify([newUrl])
-                    });
                     
+                    // store in chrome storage
+                    // key = button id; value is url.
+                    chrome.storage.sync.set({
+                        [deleteBtn.id]: [newUrl] 
+                    });
+
+                    // remove the listing on button click
                     listing.remove();
                 });
 
+                // next button will have id+1
                 buttonId++
         }
         });
