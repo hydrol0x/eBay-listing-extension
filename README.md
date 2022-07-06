@@ -1,0 +1,1 @@
+Chrome extension to remove eBay search result listings.
