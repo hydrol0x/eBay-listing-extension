@@ -5,10 +5,11 @@
     let listingUrls = {};
     let removedUrls = [];
  
+    // TODO: learn how to use callback func and access currentSearch
     chrome.runtime.onMessage.addListener((obj, sender, response) => {
-        const { type, value, searchId } = obj;
+        const { type, value, search } = obj;
         if (type === "NEW") {
-            currentSearch = 
+            currentSearch = search; 
             newSearchLoaded();
         }
     });
@@ -28,13 +29,28 @@
         removedUrls = await fetchUrls();    // removed urls
 
         searchResults.forEach((listing) => {   
+            // TODO: button ID is search ID
             const deleteBtnExists = document.getElementById(`listing${listingId}`);
             const deleteBtn = document.createElement("button");
             if (!deleteBtnExists){
-                deleteBtn.className = "btn " + "delete-btn";
-                deleteBtn.textContent = "X";
+                deleteBtn.className = "delete-btn";
+                deleteBtn.textContent = "x";
                 deleteBtn.title = "Remove listing";
                 deleteBtn.id = `listing${listingId}`; // ${searchId}`
+
+                // button styling
+                listing.style.paddingBottom = '2rem';
+                deleteBtn.style.height = '25px';
+                deleteBtn.style.width = '25px';
+                deleteBtn.style.fontSize = '10pt';
+                deleteBtn.style.float = 'right';
+                deleteBtn.style.marginRight = '0.2%';
+                deleteBtn.style.backgroundColor = 'white';
+                deleteBtn.style.borderWidth = '1.5px'
+                deleteBtn.style.borderRadius = "50%";
+                deleteBtn.onmouseover = () => {deleteBtn.style.color = 'red'; deleteBtn.style.borderColor='red';}
+                deleteBtn.onmouseout = () => {deleteBtn.style.color = 'black'; deleteBtn.style.borderColor='black';}
+                deleteBtn.style.transition = 'all 0.25s';
 
                 listing.appendChild(deleteBtn);
             }
