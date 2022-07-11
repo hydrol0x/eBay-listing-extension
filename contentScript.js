@@ -5,7 +5,6 @@
   let listingUrls = {};
   let removedUrls = [];
 
-  // TODO: learn how to use callback func and access currentSearch
   let pSearchId = new Promise((resolve) => {
     chrome.runtime.onMessage.addListener((obj) => {
       const { type, value, search } = obj;
@@ -37,7 +36,7 @@
       const deleteBtnExists = document.getElementById(id);
       const deleteBtn = document.createElement("button");
       if (!deleteBtnExists) {
-        deleteBtn.className = "delete-btn " + "btn";
+        deleteBtn.className = "delete-btn" + ;
         deleteBtn.textContent = "x";
         deleteBtn.title = "Remove listing";
         deleteBtn.id = id;
