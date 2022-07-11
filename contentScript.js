@@ -9,7 +9,7 @@
     chrome.runtime.onMessage.addListener((obj) => {
       const { type, value, search } = obj;
       if (type === "NEW") {
-        resolve((currentSearch = search));
+        resolve(search);
         newSearchLoaded();
       }
     });
@@ -36,7 +36,7 @@
       const deleteBtnExists = document.getElementById(id);
       const deleteBtn = document.createElement("button");
       if (!deleteBtnExists) {
-        deleteBtn.className = "delete-btn" + ;
+        deleteBtn.className = "delete-btn";
         deleteBtn.textContent = "x";
         deleteBtn.title = "Remove listing";
         deleteBtn.id = id;
