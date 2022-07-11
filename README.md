@@ -6,7 +6,7 @@ Made with the help of a freeCodeCamp [tutorial](https://www.youtube.com/watch?v=
 
 ## To install this extension
 
-1. Go the your browsers extensions page (or the URL such as `Chrome://extensions`).
+1. Go to your browsers extensions page (or the URL such as `Chrome://extensions`).
 2. Check `Developer Mode` on.
 3. Click `Load Unpacked`.
 4. Select the directory of the extension.
