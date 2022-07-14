@@ -65,7 +65,9 @@
       }
 
       listingUrl = listing.getElementsByClassName("s-item__link")[0].href; // get listing URL
-      listingUrls[deleteBtn.id] = listingUrl; // add unique id to each url and add to the list of all urls
+      listingTitle =
+        listing.getElementsByClassName("s-item__title")[0].textContent; // get listing title
+      listingUrls[deleteBtn.id] = { url: listingUrl, title: listingTitle }; // add unique id to each url and add to the list of all urls
 
       for (const url of removedUrls) {
         // Check for removed listings
@@ -80,8 +82,8 @@
         // can add more information later
         // TODO: store as a JSON object for easier parsing
         let newUrl = {
-          url: listingUrls[deleteBtn.id],
-          title: "title",
+          url: listingUrls[deleteBtn.id].url,
+          title: listingUrls[deleteBtn.id].title,
         };
 
         // store in chrome storage

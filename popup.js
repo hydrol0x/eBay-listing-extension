@@ -2,14 +2,15 @@ import { getActiveTabUrl } from "./utils.js";
 // adding a new url row to the popup
 //TODO: implement adding new url
 const addNewUrl = (urlElement, url) => {
-  const UrlTitleElement = document.createElement("div");
+  const urlContent = url[0]; // array of 1 element, url[0] is the object with url and title
+  const UrlTitleElement = document.createElement("a");
   const newUrlElement = document.createElement("div");
-  UrlTitleElement.textContent = url[0].title;
+  UrlTitleElement.textContent = urlContent.title;
+  UrlTitleElement.href = urlContent.url;
   UrlTitleElement.className = "url-title";
 
-  newUrlElement.id = "url-" + url.url + url.title;
+  newUrlElement.id = "url-" + urlContent.url + urlContent.title;
   newUrlElement.className = "url";
-  newUrlElement.setAttribute("url", url.url);
 
   newUrlElement.appendChild(UrlTitleElement);
   urlElement.appendChild(newUrlElement);
