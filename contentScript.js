@@ -78,6 +78,7 @@
       // on click remove listing and record url
       deleteBtn.addEventListener("click", (e) => {
         // can add more information later
+        // TODO: store as a JSON object for easier parsing
         let newUrl = {
           url: listingUrls[deleteBtn.id],
           name: "name",
