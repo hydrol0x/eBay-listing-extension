@@ -71,7 +71,6 @@
         // Check for removed listings
         if (listingUrl.split("&")[0] === url[0].url.split("&")[0]) {
           // urls change but are the same before &
-          console.log(`removed listing with url ${url}`);
           listing.remove();
         }
       }
