@@ -1,6 +1,19 @@
 import { getActiveTabUrl } from "./utils.js";
 // adding a new url row to the popup
-const addNewUrl = () => {};
+//TODO: implement adding new url
+const addNewUrl = (urlElement, url) => {
+  const UrlTitleElement = document.createElement("div");
+  const newUrlElement = document.createElement("div");
+  UrlTitleElement.textContent = url[0].title;
+  UrlTitleElement.className = "url-title";
+
+  newUrlElement.id = "url-" + url.url + url.title;
+  newUrlElement.className = "url";
+  newUrlElement.setAttribute("url", url.url);
+
+  newUrlElement.appendChild(UrlTitleElement);
+  urlElement.appendChild(newUrlElement);
+};
 
 const viewUrls = (removedUrls = []) => {
   const urlElement = document.getElementById("urls");
@@ -9,7 +22,6 @@ const viewUrls = (removedUrls = []) => {
   if (removedUrls.length > 0) {
     for (const url of removedUrls) {
       addNewUrl(urlElement, url);
-      console.log(url);
     }
   } else {
     urlElement.innerHTML = "<i class='row'>There are no bookmarks to show</i>";
