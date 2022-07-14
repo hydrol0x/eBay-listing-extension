@@ -81,7 +81,7 @@
         // TODO: store as a JSON object for easier parsing
         let newUrl = {
           url: listingUrls[deleteBtn.id],
-          name: "name",
+          title: "title",
         };
 
         // store in chrome storage
