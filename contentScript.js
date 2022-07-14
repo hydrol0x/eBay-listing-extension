@@ -43,8 +43,8 @@
 
         // button styling
         listing.style.paddingBottom = "2rem";
-        deleteBtn.style.height = "25px";
-        deleteBtn.style.width = "25px";
+        deleteBtn.style.height = "26px";
+        deleteBtn.style.width = "26px";
         deleteBtn.style.fontSize = "10pt";
         deleteBtn.style.float = "right";
         deleteBtn.style.marginRight = "0.2%";
