@@ -11,10 +11,10 @@ const addNewUrl = (urlElement, url) => {
   UrlTitleElement.className = "url-title";
 
   deleteBtn.className = "deleteBtn";
-  deleteBtn.src = "X_icon.png";
+  deleteBtn.src = "assets/X_icon.png";
   deleteBtn.title = "Remove";
   deleteBtn.addEventListener("click", (e) => {
-    // TODO: delete
+    newUrlElement.remove();
   });
 
   newUrlElement.id = "url-" + urlContent.url + urlContent.title;
