@@ -21,5 +21,4 @@ The extension will load an `x` button which you can click to remove a search res
 
 ## To-add features
 
-1. UI in the extension popup that shows currently removed URLS
-2. Record the title of the search result (listing) as well as the URL for the UI
+1. Add remove button in UI to remove stored listings
