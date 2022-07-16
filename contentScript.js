@@ -17,7 +17,7 @@
     });
   });
 
-  const fetchUrls = () => {
+  const getUrls = () => {
     return new Promise((resolve) => {
       chrome.storage.sync.get(null, (obj) => {
         resolve(Object.values(obj).length > 0 ? Object.values(obj) : []);
@@ -34,10 +34,8 @@
   };
 
   const newSearchLoaded = async () => {
-    const searchResults = document
-      .querySelectorAll(".srp-results")[0]
-      .querySelectorAll(".s-item"); // list of search results
-    removedUrls = await fetchUrls(); // removed urls
+    const searchResults = getSearchResults();
+    removedUrls = await getUrls(); // removed urls
     currentSearch = await messageListener;
 
     searchResults.forEach((listing) => {
