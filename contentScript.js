@@ -21,6 +21,16 @@
     return Array.from(searchResults);
   };
 
+  const removeListings = (listingUrl, removedUrls = [], listing) => {
+    for (const removedUrl of removedUrls) {
+      // Check for removed listings
+      if (listingUrl.split("&")[0] === removedUrl[0].url.split("&")[0]) {
+        // urls change but are the same before &
+        listing.remove();
+      }
+    }
+  };
+
   const newSearchLoaded = async () => {
     const searchResults = getSearchResults();
     removedUrls = await getUrls(); // removed urls
@@ -64,13 +74,7 @@
         listing.getElementsByClassName("s-item__title")[0].textContent; // get listing title
       listingUrls[deleteBtn.id] = { url: listingUrl, title: listingTitle }; // add unique id to each url and add to the list of all urls
 
-      for (const removedUrl of removedUrls) {
-        // Check for removed listings
-        if (listingUrl.split("&")[0] === removedUrl[0].url.split("&")[0]) {
-          // urls change but are the same before &
-          listing.remove();
-        }
-      }
+      removeListings(listingUrl, removedUrls, listing);
 
       // on click remove listing and record url
       deleteBtn.addEventListener("click", (e) => {
