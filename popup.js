@@ -10,15 +10,25 @@ const addNewUrl = (urlElement, url) => {
   UrlTitleElement.target = "_blank"; // open a new tab when clicked
   UrlTitleElement.className = "url-title";
 
+  newUrlElement.id = "url-" + urlContent.url + urlContent.title;
+  newUrlElement.className = "url";
+
   deleteBtn.className = "deleteBtn";
   deleteBtn.src = "assets/X_icon.png";
   deleteBtn.title = "Remove";
-  deleteBtn.addEventListener("click", (e) => {
-    newUrlElement.remove();
-  });
+  deleteBtn.addEventListener("click", async (e) => {
+    const activeTab = await getActiveTabUrl();
+    const urlElementToDelete = document.getElementById(
+      "url-" + urlContent.url + urlContent.title
+    );
 
-  newUrlElement.id = "url-" + urlContent.url + urlContent.title;
-  newUrlElement.className = "url";
+    urlElementToDelete.parentNode.removeChild(urlElementToDelete);
+
+    chrome.tabs.sendMessage(activeTab.id, {
+      type: "DELETE",
+      value: "null",
+    });
+  });
 
   newUrlElement.appendChild(UrlTitleElement);
   newUrlElement.appendChild(deleteBtn);
