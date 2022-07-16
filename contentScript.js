@@ -5,18 +5,6 @@
   let listingUrls = {};
   let removedUrls = [];
 
-  let messageListener = new Promise((resolve) => {
-    chrome.runtime.onMessage.addListener((obj) => {
-      const { type, value, search } = obj;
-      if (type === "NEW") {
-        resolve(search);
-        newSearchLoaded();
-      } else if (type === "DELETE") {
-        console.log("delete");
-      }
-    });
-  });
-
   const getUrls = () => {
     return new Promise((resolve) => {
       chrome.storage.sync.get(null, (obj) => {
@@ -30,7 +18,7 @@
       .getElementsByClassName("srp-results")[0]
       .getElementsByClassName("s-item");
 
-    return searchResults;
+    return Array.from(searchResults);
   };
 
   const newSearchLoaded = async () => {
@@ -39,7 +27,6 @@
     currentSearch = await messageListener;
 
     searchResults.forEach((listing) => {
-      // TODO: button ID is search ID
       const id = `listing${listingId}${currentSearch}`;
       const deleteBtnExists = document.getElementById(id);
       const deleteBtn = document.createElement("button");
@@ -108,4 +95,16 @@
       listingId++;
     });
   };
+
+  let messageListener = new Promise((resolve) => {
+    chrome.runtime.onMessage.addListener((obj) => {
+      const { type, value, search } = obj;
+      if (type === "NEW") {
+        resolve(search);
+        newSearchLoaded();
+      } else if (type === "DELETE") {
+        console.log(value);
+      }
+    });
+  });
 })();
