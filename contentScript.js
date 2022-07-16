@@ -5,12 +5,14 @@
   let listingUrls = {};
   let removedUrls = [];
 
-  let pSearchId = new Promise((resolve) => {
+  let messageListener = new Promise((resolve) => {
     chrome.runtime.onMessage.addListener((obj) => {
       const { type, value, search } = obj;
       if (type === "NEW") {
         resolve(search);
         newSearchLoaded();
+      } else if (type === "DELETE") {
+        console.log("delete");
       }
     });
   });
@@ -23,12 +25,20 @@
     });
   };
 
+  const getSearchResults = () => {
+    const searchResults = document
+      .getElementsByClassName("srp-results")[0]
+      .getElementsByClassName("s-item");
+
+    return searchResults;
+  };
+
   const newSearchLoaded = async () => {
     const searchResults = document
       .querySelectorAll(".srp-results")[0]
       .querySelectorAll(".s-item"); // list of search results
     removedUrls = await fetchUrls(); // removed urls
-    currentSearch = await pSearchId;
+    currentSearch = await messageListener;
 
     searchResults.forEach((listing) => {
       // TODO: button ID is search ID
@@ -69,9 +79,9 @@
         listing.getElementsByClassName("s-item__title")[0].textContent; // get listing title
       listingUrls[deleteBtn.id] = { url: listingUrl, title: listingTitle }; // add unique id to each url and add to the list of all urls
 
-      for (const url of removedUrls) {
+      for (const removedUrl of removedUrls) {
         // Check for removed listings
-        if (listingUrl.split("&")[0] === url[0].url.split("&")[0]) {
+        if (listingUrl.split("&")[0] === removedUrl[0].url.split("&")[0]) {
           // urls change but are the same before &
           listing.remove();
         }
@@ -80,8 +90,8 @@
       // on click remove listing and record url
       deleteBtn.addEventListener("click", (e) => {
         // can add more information later
-        // TODO: store as a JSON object for easier parsing
-        let newUrl = {
+        // TODO: store as a JSON object for easier parsing!!
+        const newUrl = {
           url: listingUrls[deleteBtn.id].url,
           title: listingUrls[deleteBtn.id].title,
         };
